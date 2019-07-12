@@ -1,10 +1,10 @@
-import React from "react";
-import Friendster from "./components/Friendster";
+import React from 'react';
+import Friendster from './components/Friendster';
 
 const App = () => (
-  <div>
-    <Friendster />
-  </div>
+    <div>
+        <Friendster />
+    </div>
 );
 
 export default App;
