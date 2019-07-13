@@ -52,9 +52,18 @@ const Action = styled.div`
 `;
 
 const Friendster = () => {
+    const rows = 2;
     const [friends, makeFriends] = useState([]);
-    const [inputVal, setVal] = useState('');
+    const [inputVal, setInputVal] = useState('');
     const [page, setPage] = useState(1);
+
+    const markFav = friend => makeFriends(friends.map(x => (x.id === friend.id ? { ...x, isFav: !x.isFav } : x)));
+
+    const unfriend = friend => makeFriends(friends.filter(x => x.id !== friend.id));
+
+    const getID = (prefix = '') => prefix + '-' + new Date().getTime();
+
+    const getPageIndices = rowsPerPage => [(page - 1) * rowsPerPage, page * rowsPerPage];
 
     return (
         <div className="max-width-container fcol">
@@ -64,16 +73,16 @@ const Friendster = () => {
                     showDivider={!!friends.length}
                     placeholder="Type the name of a friend"
                     value={inputVal}
-                    onChange={e => setVal(e.target.value)}
+                    onChange={e => setInputVal(e.target.value)}
                     onKeyDown={e => {
                         if (e.key === 'Enter' && e.target.value.length) {
-                            makeFriends([{ name: e.target.value.trim(), isFav: false, mutual: 'xx' }, ...friends]);
-                            setVal('');
+                            makeFriends([{ id: getID('friend'), name: e.target.value.trim(), isFav: false, mutual: 'xx' }, ...friends]);
+                            setInputVal('');
                         }
                     }}
                 />
                 {!!friends.length &&
-                    friends.slice(page * 2 - 2, page * 2).map((x, i) => (
+                    friends.slice(...getPageIndices(rows)).map((x, i) => (
                         <Friends key={i}>
                             <div className="detail fcol">
                                 <span className="regular text-bold">{x.name}</span>
@@ -82,28 +91,13 @@ const Friendster = () => {
                             <div className="actions frow align-items">
                                 <Action className="margin-r-5">
                                     {x.isFav ? (
-                                        <i
-                                            className="fa fa-star regular solid pointer"
-                                            onClick={() => {
-                                                makeFriends([...friends.slice(0, i), { ...x, isFav: false }, ...friends.slice(i + 1)]);
-                                            }}
-                                        />
+                                        <i className="fa fa-star regular solid pointer" onClick={() => markFav(x)} />
                                     ) : (
-                                        <i
-                                            className="fa fa-star-o regular solid pointer"
-                                            onClick={() => {
-                                                makeFriends([...friends.slice(0, i), { ...x, isFav: true }, ...friends.slice(i + 1)]);
-                                            }}
-                                        />
+                                        <i className="fa fa-star-o regular solid pointer" onClick={() => markFav(x)} />
                                     )}
                                 </Action>
                                 <Action>
-                                    <i
-                                        className="fa fa-trash regular solid pointer"
-                                        onClick={() => {
-                                            makeFriends([...friends.slice(0, i), ...friends.slice(i + 1)]);
-                                        }}
-                                    />
+                                    <i className="fa fa-trash regular solid pointer" onClick={() => unfriend(x)} />
                                 </Action>
                             </div>
                         </Friends>
@@ -111,15 +105,15 @@ const Friendster = () => {
             </Container>
             <div className="margin-t-5 frow center" style={{ width: '300px' }}>
                 {page > 1 ? (
-                    <i className="fa fa-chevron-circle-left regular pointer margin-r-5" onClick={() => page > 1 && setPage(page - 1)} />
+                    <i className="fa fa-chevron-circle-left regular pointer margin-r-5" onClick={() => setPage(page - 1)} />
                 ) : (
                     <i className="fa fa-chevron-circle-left regular margin-r-5 light-gray" />
                 )}
                 <span className="small">
-                    {page}/{Math.ceil(friends.length / 2) || 1}
+                    {page}/{Math.ceil(friends.length / rows) || 1}
                 </span>
-                {friends.length > 2 && page < Math.ceil(friends.length / 2) ? (
-                    <i className="fa fa-chevron-circle-right regular pointer margin-l-5" onClick={() => page < Math.ceil(friends.length / 2) && setPage(page + 1)} />
+                {friends.length > rows && page < Math.ceil(friends.length / rows) ? (
+                    <i className="fa fa-chevron-circle-right regular pointer margin-l-5" onClick={() => setPage(page + 1)} />
                 ) : (
                     <i className="fa fa-chevron-circle-right regular light-gray margin-l-5" />
                 )}
