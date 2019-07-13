@@ -54,8 +54,10 @@ const Action = styled.div`
 const Friendster = () => {
     const [friends, makeFriends] = useState([]);
     const [inputVal, setVal] = useState('');
+    const [page, setPage] = useState(1);
+
     return (
-        <div className="max-width-container">
+        <div className="max-width-container fcol">
             <Container>
                 <Header>The FriendList</Header>
                 <InputField
@@ -65,19 +67,19 @@ const Friendster = () => {
                     onChange={e => setVal(e.target.value)}
                     onKeyDown={e => {
                         if (e.key === 'Enter' && e.target.value.length) {
-                            makeFriends([...friends, { name: e.target.value.trim(), isFav: false, mutual: 'xx' }]);
+                            makeFriends([{ name: e.target.value.trim(), isFav: false, mutual: 'xx' }, ...friends]);
                             setVal('');
                         }
                     }}
                 />
                 {!!friends.length &&
-                    friends.map((x, i) => (
+                    friends.slice(page * 2 - 2, page * 2).map((x, i) => (
                         <Friends key={i}>
                             <div className="detail fcol">
                                 <span className="regular text-bold">{x.name}</span>
                                 <span className="small margin-t-5">{x.mutual + ' friends in common'}</span>
                             </div>
-                            <div className="actions frow">
+                            <div className="actions frow align-items">
                                 <Action className="margin-r-5">
                                     {x.isFav ? (
                                         <i
@@ -107,6 +109,21 @@ const Friendster = () => {
                         </Friends>
                     ))}
             </Container>
+            <div className="margin-t-5 frow center" style={{ width: '300px' }}>
+                {page > 1 ? (
+                    <i className="fa fa-chevron-circle-left regular pointer margin-r-5" onClick={() => page > 1 && setPage(page - 1)} />
+                ) : (
+                    <i className="fa fa-chevron-circle-left regular margin-r-5 light-gray" />
+                )}
+                <span className="small">
+                    {page}/{Math.ceil(friends.length / 2) || 1}
+                </span>
+                {friends.length > 2 && page < Math.ceil(friends.length / 2) ? (
+                    <i className="fa fa-chevron-circle-right regular pointer margin-l-5" onClick={() => page < Math.ceil(friends.length / 2) && setPage(page + 1)} />
+                ) : (
+                    <i className="fa fa-chevron-circle-right regular light-gray margin-l-5" />
+                )}
+            </div>
         </div>
     );
 };

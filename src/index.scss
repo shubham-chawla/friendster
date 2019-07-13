@@ -10,7 +10,7 @@ body {
     color: #4a4a4a;
     font-size: 14px;
     min-height: 100%;
-    line-height: 26px;
+    line-height: 22px;
     font-weight: normal;
     background-color: #efefef;
     margin: 0;
@@ -80,6 +80,11 @@ input::placeholder {
     flex-direction: row;
 }
 
+.f-space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
 .margin-t-5 {
     margin-top: 5px;
 }
@@ -88,10 +93,28 @@ input::placeholder {
     margin-right: 5px;
 }
 
+.margin-l-5 {
+    margin-left: 5px;
+}
+
 .solid {
     color: #909090;
 }
 
 .pointer {
     cursor: pointer;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.align-items {
+    align-items: center;
+}
+
+.light-gray {
+    color: #d7d7d7;
 }
