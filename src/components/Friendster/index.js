@@ -100,7 +100,6 @@ const Friendster = () => {
 
     return (
         <div className="max-width-container fcol center margin-t-50">
-            {console.log(lastPage)}
             <Container>
                 <Header>The FriendList</Header>
                 <InputField
