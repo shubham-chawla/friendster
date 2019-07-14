@@ -1,16 +1,16 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const nodeExternals = require('webpack-node-externals');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-    entry: path.resolve(__dirname, '..', 'src/index.js'),
+    entry: path.resolve(__dirname, '..', 'server/index.js'),
     output: {
         path: path.resolve(__dirname, '..', 'dist'),
-        filename: 'client.js',
+        publicPath: '/dist/',
+        filename: 'server.js',
     },
-    devServer: {
-        contentBase: './dist',
-    },
+    target: 'node',
+    externals: [nodeExternals()],
     resolve: {
         extensions: ['.js'],
         alias: {
@@ -39,9 +39,6 @@ module.exports = {
         ],
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '..', 'index.html'),
-        }),
         new MiniCssExtractPlugin({
             filename: 'my-css-build.css',
             chunkFilename: 'chunk-css-build.css',
