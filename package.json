@@ -16,7 +16,8 @@
     "scripts": {
         "start": "webpack-dev-server --open",
         "build": "webpack",
-        "build:server": "webpack --config ./config/server.js"
+        "build:server": "webpack --config ./config/server.js",
+        "deploy": "yarn build && yarn build:server && node dist/server.js"
     },
     "eslintConfig": {
         "extends": "react-app"

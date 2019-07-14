@@ -90,9 +90,11 @@ const Friendster = () => {
     const getPageIndices = rowsPerPage => [(page - 1) * rowsPerPage, page * rowsPerPage];
 
     const setOutbounds = () => {
-        if (!(friends.slice(...getPageIndices(rows)).length - 1)) {
+        if (!(friends.slice(...getPageIndices(rows)).length - 1) && lastPage === (Math.ceil(friends.length / rows) || 1)) {
             setLastPage(lastPage - 1 || 1);
             setPage(page - 1 || 1);
+        } else {
+            setLastPage(Math.ceil((friends.length - 1) / rows) || 1);
         }
     };
 
