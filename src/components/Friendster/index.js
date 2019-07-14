@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { FaStar, FaRegStar, FaTrashAlt, FaChevronCircleLeft, FaChevronCircleRight } from 'react-icons/fa';
 
 const Container = styled.div`
     display: flex;
@@ -91,13 +92,13 @@ const Friendster = () => {
                             <div className="actions frow align-items">
                                 <Action className="margin-r-5">
                                     {x.isFav ? (
-                                        <i className="fa fa-star regular solid pointer" onClick={() => markFav(x)} />
+                                        <FaStar className="regular solid pointer" onClick={() => markFav(x)} />
                                     ) : (
-                                        <i className="fa fa-star-o regular solid pointer" onClick={() => markFav(x)} />
+                                        <FaRegStar className="regular solid pointer" onClick={() => markFav(x)} />
                                     )}
                                 </Action>
                                 <Action>
-                                    <i className="fa fa-trash regular solid pointer" onClick={() => unfriend(x)} />
+                                    <FaTrashAlt className="regular solid pointer" onClick={() => unfriend(x)} />
                                 </Action>
                             </div>
                         </Friends>
@@ -105,17 +106,17 @@ const Friendster = () => {
             </Container>
             <div className="margin-t-5 frow center" style={{ width: '300px' }}>
                 {page > 1 ? (
-                    <i className="fa fa-chevron-circle-left regular pointer margin-r-5" onClick={() => setPage(page - 1)} />
+                    <FaChevronCircleLeft className="regular pointer margin-r-5" onClick={() => setPage(page - 1)} />
                 ) : (
-                    <i className="fa fa-chevron-circle-left regular margin-r-5 light-gray" />
+                    <FaChevronCircleLeft className="regular margin-r-5 light-gray" />
                 )}
                 <span className="small">
                     {page}/{Math.ceil(friends.length / rows) || 1}
                 </span>
                 {friends.length > rows && page < Math.ceil(friends.length / rows) ? (
-                    <i className="fa fa-chevron-circle-right regular pointer margin-l-5" onClick={() => setPage(page + 1)} />
+                    <FaChevronCircleRight className="regular pointer margin-l-5" onClick={() => setPage(page + 1)} />
                 ) : (
-                    <i className="fa fa-chevron-circle-right regular light-gray margin-l-5" />
+                    <FaChevronCircleRight className="regular light-gray margin-l-5" />
                 )}
             </div>
         </div>
