@@ -16,8 +16,8 @@
         "webpack-node-externals": "^1.7.2"
     },
     "scripts": {
-        "start": "webpack-dev-server --open",
-        "build": "webpack && yarn build:server",
+        "start": "webpack && webpack --config ./config/server.js",
+        "build": "webpack && webpack --config ./config/server.js",
         "build:server": "webpack --config ./config/server.js",
         "deploy": "yarn build && yarn build:server && node dist/server.js"
     },

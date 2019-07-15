@@ -5,7 +5,7 @@ const branch = 'heroku';
 const buildfolder = 'build';
 
 // fs.rmdirSync(path.resolve(process.cwd(), 'node_modules/gh-pages/.cache'))
-fs.writeFile(`${buildfolder}/Procfile`, 'web npm run heroku', err => (err ? console.log(err) : console.log('Created Procfile for Heroku')));
+fs.writeFile(`${buildfolder}/Procfile`, 'web: node index.js', err => (err ? console.log(err) : console.log('Created Procfile for Heroku')));
 fs.copyFileSync('package.json', `${buildfolder}/package.json`);
 console.log('Copied package.json');
 fs.copyFileSync('yarn.lock', `${buildfolder}/yarn.lock`);
