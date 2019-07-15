@@ -17,7 +17,7 @@
     },
     "scripts": {
         "start": "webpack-dev-server --open",
-        "build": "webpack && yarn build:server",
+        "build": "webpack && yarn build:server&& forever start dist/server.js",
         "build:server": "webpack --config ./config/server.js",
         "deploy": "yarn build && yarn build:server && node dist/server.js"
     },

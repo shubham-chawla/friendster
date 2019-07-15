@@ -2,7 +2,7 @@ import express from 'express';
 
 import serverRenderer from './middleware/renderer';
 
-const PORT = 3000;
+const PORT = 8000;
 const path = require('path');
 
 const app = express();
