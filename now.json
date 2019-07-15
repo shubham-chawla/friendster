@@ -5,5 +5,11 @@
             "src": "/dist/server.js",
             "use": "@now/node-server"
         }
+    ],
+    "routes": [
+        {
+            "src": "/",
+            "dest": "/dist/server.js"
+        }
     ]
 }
